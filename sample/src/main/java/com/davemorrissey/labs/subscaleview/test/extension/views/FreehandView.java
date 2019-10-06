@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.*;
 import android.graphics.Paint.Cap;
 import android.graphics.Paint.Style;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+
+import androidx.annotation.NonNull;
+
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import java.util.ArrayList;
