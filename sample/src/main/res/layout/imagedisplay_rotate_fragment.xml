@@ -2,19 +2,19 @@
 
     <RelativeLayout style="@style/footer" android:id="@+id/footer">
 
-        <ImageView style="@style/previousButton" android:id="@+id/previous" android:contentDescription="@string/button.previous"/>
+        <ImageView style="@style/previousButton" android:id="@+id/previous" android:contentDescription="@string/bttn_previous"/>
 
-        <ImageView style="@style/nextButton" android:id="@+id/next" android:contentDescription="@string/button.next"/>
+        <ImageView style="@style/nextButton" android:id="@+id/next" android:contentDescription="@string/bttn_next"/>
 
         <ImageView style="@style/footerButton"
                 android:id="@+id/rotate"
                 android:layout_toStartOf="@id/next"
                 android:src="@drawable/rotate"
-                android:contentDescription="@string/button.rotate"/>
+                android:contentDescription="@string/bttn_rotate"/>
 
         <TextView style="@style/footerNote"
                 android:id="@+id/note"
-                android:text="@string/display.p2.text"
+                android:text="@string/display_p2_text"
                 android:layout_toStartOf="@id/rotate"
                 android:layout_toEndOf="@id/previous"/>
 

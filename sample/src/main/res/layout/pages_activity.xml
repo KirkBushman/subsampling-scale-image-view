@@ -2,9 +2,9 @@
 
     <RelativeLayout style="@style/footer" android:id="@+id/footer">
 
-        <ImageView style="@style/previousButton" android:id="@+id/previous" android:contentDescription="@string/button.previous"/>
+        <ImageView style="@style/previousButton" android:id="@+id/previous" android:contentDescription="@string/bttn_previous"/>
 
-        <ImageView style="@style/nextButton" android:id="@+id/next" android:contentDescription="@string/button.next"/>
+        <ImageView style="@style/nextButton" android:id="@+id/next" android:contentDescription="@string/bttn_next"/>
 
         <TextView style="@style/footerNote"
                 android:id="@+id/note"

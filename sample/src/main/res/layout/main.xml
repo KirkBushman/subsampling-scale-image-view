@@ -1,48 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" style="@style/fill">
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <LinearLayout android:orientation="vertical"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:titleTextColor="@android:color/white"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <View style="@style/indexDivider"/>
-            <TextView style="@style/indexLink" android:id="@+id/basicFeatures" android:text="@string/basic.link"/>
-            <View style="@style/indexDivider"/>
-            <TextView style="@style/indexLink" android:id="@+id/imageDisplay" android:text="@string/display.link"/>
-            <View style="@style/indexDivider"/>
-            <TextView style="@style/indexLink" android:id="@+id/eventHandling" android:text="@string/event.link"/>
-            <View style="@style/indexDivider"/>
-            <TextView style="@style/indexLink" android:id="@+id/advancedEventHandling" android:text="@string/advancedevent.link"/>
-            <View style="@style/indexDivider"/>
-            <TextView style="@style/indexLink" android:id="@+id/viewPagerGalleries" android:text="@string/pager.link"/>
-            <View style="@style/indexDivider"/>
-            <TextView style="@style/indexLink" android:id="@+id/animation" android:text="@string/animation.link"/>
-            <View style="@style/indexDivider"/>
-            <TextView style="@style/indexLink" android:id="@+id/extension" android:text="@string/extension.link"/>
-            <View style="@style/indexDivider"/>
-            <TextView style="@style/indexLink" android:id="@+id/configuration" android:text="@string/configuration.link"/>
-            <View style="@style/indexDivider"/>
+
+            <Button
+                android:id="@+id/basicFeatures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/basic_link"
+                />
+
+            <Button
+                android:id="@+id/imageDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/display_link"
+                />
+
+            <Button
+                android:id="@+id/eventHandling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/event_link"
+                />
+
+            <Button
+                android:id="@+id/advancedEventHandling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/advancedevent_link"
+                />
+
+            <Button
+                android:id="@+id/viewPagerGalleries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/pager_link"/>
+
+            <Button
+                android:id="@+id/animation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/animation_link"
+                />
+
+            <Button
+                android:id="@+id/extension"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/extension_link"
+                />
+
+            <Button
+                android:id="@+id/configuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/configuration_link"
+                />
+
+            <Button
+                android:id="@+id/github"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textSize="16sp"
+                android:text="@string/main_viewongithub"/>
 
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-                android:id="@+id/github"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:textSize="16sp"
-                android:text="@string/main.viewongithub"/>
-
-    </LinearLayout>
-</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
