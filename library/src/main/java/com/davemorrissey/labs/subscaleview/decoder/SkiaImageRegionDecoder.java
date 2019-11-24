@@ -73,6 +73,7 @@ public class SkiaImageRegionDecoder implements ImageRegionDecoder {
                 res = context.getResources();
             } else {
                 PackageManager pm = context.getPackageManager();
+                assert packageName != null;
                 res = pm.getResourcesForApplication(packageName);
             }
 
