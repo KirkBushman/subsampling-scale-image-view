@@ -13,6 +13,7 @@ import com.davemorrissey.labs.subscaleview.test.eventhandling.EventHandlingActiv
 import com.davemorrissey.labs.subscaleview.test.eventhandlingadvanced.AdvancedEventHandlingActivity
 import com.davemorrissey.labs.subscaleview.test.extension.ExtensionActivity
 import com.davemorrissey.labs.subscaleview.test.imagedisplay.ImageDisplayActivity
+import com.davemorrissey.labs.subscaleview.test.scaletype.ScaleTypeActivity
 import com.davemorrissey.labs.subscaleview.test.viewpager.ViewPagerActivity
 import kotlinx.android.synthetic.main.main.*
 
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         animation.setOnClickListener { startActivity(AnimationActivity::class.java) }
         extension.setOnClickListener { startActivity(ExtensionActivity::class.java) }
         configuration.setOnClickListener { startActivity(ConfigurationActivity::class.java) }
+        scaletype.setOnClickListener { startActivity(ScaleTypeActivity::class.java) }
         github.setOnClickListener { openGitHub() }
     }
 

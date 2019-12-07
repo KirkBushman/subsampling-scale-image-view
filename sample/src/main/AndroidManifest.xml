@@ -30,5 +30,6 @@
         <activity android:name=".animation.AnimationActivity"/>
         <activity android:name=".extension.ExtensionActivity"/>
         <activity android:name=".configuration.ConfigurationActivity"/>
+        <activity android:name=".scaletype.ScaleTypeActivity"/>
     </application>
 </manifest>

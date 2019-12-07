@@ -11,6 +11,27 @@
     <string name="bttn_previous">Previous</string>
     <string name="bttn_rotate">Rotate</string>
     <string name="bttn_reset">Reset</string>
+    
+    <string name="radio_imageview">ImageView</string>
+    <string name="radio_ssiv">SSIV</string>
+
+    <string name="scale_type">Scale Type</string>
+    <string-array name="spinner_scaletype">
+        <item>CENTER_INSIDE</item>
+        <item>CENTER_CROP</item>
+        <item>CENTER</item>
+        <item>FIT_CENTER</item>
+        <item>FIT_END</item>
+        <item>FIT_START</item>
+        <item>FIT_XY</item>
+        <item>MATRIX</item>
+    </string-array>
+    <string-array name="spinner_scaletype_ssiv">
+        <item>SCALE_TYPE_CENTER_INSIDE</item>
+        <item>SCALE_TYPE_CENTER_CROP</item>
+        <item>SCALE_TYPE_CUSTOM</item>
+        <item>SCALE_TYPE_START</item>
+    </string-array>
 
     <string name="basic_link">Basic features</string>
     <string name="basic_title">Basic features</string>
