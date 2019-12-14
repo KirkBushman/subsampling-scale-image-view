@@ -3,6 +3,7 @@ package com.davemorrissey.labs.subscaleview.test.viewpager;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -64,9 +65,10 @@ public class ViewPagerActivity extends AbstractPagesActivity {
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             ViewPagerFragment fragment = new ViewPagerFragment();
