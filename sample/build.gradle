@@ -26,19 +26,28 @@ android {
             assets.srcDirs = ['assets']
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        noReflect = true
+    }
 }
 
 dependencies {
     implementation project(':library')
 
-    implementation 'androidx.core:core:1.1.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_ver"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
 
     implementation 'com.google.android.material:material:1.1.0-beta02'
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-4'
+    implementation 'androidx.core:core:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.60"
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0'
 }

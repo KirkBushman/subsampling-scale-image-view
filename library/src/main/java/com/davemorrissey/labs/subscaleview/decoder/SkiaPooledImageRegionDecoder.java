@@ -86,7 +86,7 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
 
     @SuppressWarnings({"WeakerAccess", "SameParameterValue"})
     public SkiaPooledImageRegionDecoder(@Nullable Bitmap.Config bitmapConfig) {
-        Bitmap.Config globalBitmapConfig = SubsamplingScaleImageView.getPreferredBitmapConfig();
+        final Bitmap.Config globalBitmapConfig = SubsamplingScaleImageView.getPreferredBitmapConfig();
         if (bitmapConfig != null) {
             this.bitmapConfig = bitmapConfig;
         } else if (globalBitmapConfig != null) {
@@ -127,7 +127,7 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
     private void lazyInit() {
         if (lazyInited.compareAndSet(false, true) && fileLength < Long.MAX_VALUE) {
             debug("Starting lazy init of additional decoders");
-            Thread thread = new Thread() {
+            final Thread thread = new Thread() {
                 @Override
                 public void run() {
                     while (decoderPool != null && allowAdditionalDecoder(decoderPool.size(), fileLength)) {
@@ -135,10 +135,10 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
                         // them being initialised while the pool is being recycled.
                         try {
                             if (decoderPool != null) {
-                                long start = System.currentTimeMillis();
+                                final long start = System.currentTimeMillis();
                                 debug("Starting decoder");
                                 initialiseDecoder();
-                                long end = System.currentTimeMillis();
+                                final long end = System.currentTimeMillis();
                                 debug("Started decoder, took " + (end - start) + "ms");
                             }
                         } catch (Exception e) {
@@ -157,25 +157,25 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
      * been recycled while it was created.
      */
     private void initialiseDecoder() throws Exception {
-        String uriString = uri.toString();
+        final String uriString = uri.toString();
         BitmapRegionDecoder decoder;
         long fileLength = Long.MAX_VALUE;
         if (uriString.startsWith(RESOURCE_PREFIX)) {
             Resources res;
-            String packageName = uri.getAuthority();
+            final String packageName = uri.getAuthority();
             if (context.getPackageName().equals(packageName)) {
                 res = context.getResources();
             } else {
-                PackageManager pm = context.getPackageManager();
+                final PackageManager pm = context.getPackageManager();
                 assert packageName != null;
                 res = pm.getResourcesForApplication(packageName);
             }
 
             int id = 0;
-            List<String> segments = uri.getPathSegments();
-            int size = segments.size();
+            final List<String> segments = uri.getPathSegments();
+            final int size = segments.size();
             if (size == 2 && segments.get(0).equals("drawable")) {
-                String resName = segments.get(1);
+                final String resName = segments.get(1);
                 id = res.getIdentifier(resName, "drawable", packageName);
             } else if (size == 1 && TextUtils.isDigitsOnly(segments.get(0))) {
                 try {
@@ -184,16 +184,16 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
                 }
             }
             try {
-                AssetFileDescriptor descriptor = context.getResources().openRawResourceFd(id);
+                final AssetFileDescriptor descriptor = context.getResources().openRawResourceFd(id);
                 fileLength = descriptor.getLength();
             } catch (Exception e) {
                 // Pooling disabled
             }
             decoder = BitmapRegionDecoder.newInstance(context.getResources().openRawResource(id), false);
         } else if (uriString.startsWith(ASSET_PREFIX)) {
-            String assetName = uriString.substring(ASSET_PREFIX.length());
+            final String assetName = uriString.substring(ASSET_PREFIX.length());
             try {
-                AssetFileDescriptor descriptor = context.getAssets().openFd(assetName);
+                final AssetFileDescriptor descriptor = context.getAssets().openFd(assetName);
                 fileLength = descriptor.getLength();
             } catch (Exception e) {
                 // Pooling disabled
@@ -202,7 +202,7 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
         } else if (uriString.startsWith(FILE_PREFIX)) {
             decoder = BitmapRegionDecoder.newInstance(uriString.substring(FILE_PREFIX.length()), false);
             try {
-                File file = new File(uriString);
+                final File file = new File(uriString);
                 if (file.exists()) {
                     fileLength = file.length();
                 }
@@ -212,11 +212,11 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
         } else {
             InputStream inputStream = null;
             try {
-                ContentResolver contentResolver = context.getContentResolver();
+                final ContentResolver contentResolver = context.getContentResolver();
                 inputStream = contentResolver.openInputStream(uri);
                 decoder = BitmapRegionDecoder.newInstance(inputStream, false);
                 try {
-                    AssetFileDescriptor descriptor = contentResolver.openAssetFileDescriptor(uri, "r");
+                    final AssetFileDescriptor descriptor = contentResolver.openAssetFileDescriptor(uri, "r");
                     if (descriptor != null) {
                         fileLength = descriptor.getLength();
                     }
@@ -259,14 +259,14 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
         decoderLock.readLock().lock();
         try {
             if (decoderPool != null) {
-                BitmapRegionDecoder decoder = decoderPool.acquire();
+                final BitmapRegionDecoder decoder = decoderPool.acquire();
                 try {
                     // Decoder can't be null or recycled in practice
                     if (decoder != null && !decoder.isRecycled()) {
-                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        final BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inSampleSize = sampleSize;
                         options.inPreferredConfig = bitmapConfig;
-                        Bitmap bitmap = decoder.decodeRegion(sRect, options);
+                        final Bitmap bitmap = decoder.decodeRegion(sRect, options);
                         if (bitmap == null) {
                             throw new RuntimeException("Skia image decoder returned null bitmap - image format may not be supported");
                         }
@@ -448,8 +448,8 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
             }
         }
         try {
-            File dir = new File("/sys/devices/system/cpu/");
-            File[] files = dir.listFiles(new CpuFilter());
+            final File dir = new File("/sys/devices/system/cpu/");
+            final File[] files = dir.listFiles(new CpuFilter());
             return files.length;
         } catch(Exception e) {
             return 1;
@@ -457,7 +457,7 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
     }
 
     private boolean isLowMemory() {
-        ActivityManager activityManager = (ActivityManager)context.getSystemService(ACTIVITY_SERVICE);
+        final ActivityManager activityManager = (ActivityManager)context.getSystemService(ACTIVITY_SERVICE);
         if (activityManager != null) {
             ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
             activityManager.getMemoryInfo(memoryInfo);

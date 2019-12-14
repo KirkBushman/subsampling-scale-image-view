@@ -51,8 +51,8 @@ public class SkiaImageRegionDecoder implements ImageRegionDecoder {
     }
 
     @SuppressWarnings({"WeakerAccess", "SameParameterValue"})
-    public SkiaImageRegionDecoder(@Nullable Bitmap.Config bitmapConfig) {
-        Bitmap.Config globalBitmapConfig = SubsamplingScaleImageView.getPreferredBitmapConfig();
+    public SkiaImageRegionDecoder(@Nullable final Bitmap.Config bitmapConfig) {
+        final Bitmap.Config globalBitmapConfig = SubsamplingScaleImageView.getPreferredBitmapConfig();
         if (bitmapConfig != null) {
             this.bitmapConfig = bitmapConfig;
         } else if (globalBitmapConfig != null) {
@@ -64,24 +64,24 @@ public class SkiaImageRegionDecoder implements ImageRegionDecoder {
 
     @Override
     @NonNull
-    public Point init(Context context, @NonNull Uri uri) throws Exception {
-        String uriString = uri.toString();
+    public Point init(final Context context, @NonNull final Uri uri) throws Exception {
+        final String uriString = uri.toString();
         if (uriString.startsWith(RESOURCE_PREFIX)) {
             Resources res;
-            String packageName = uri.getAuthority();
+            final String packageName = uri.getAuthority();
             if (context.getPackageName().equals(packageName)) {
                 res = context.getResources();
             } else {
-                PackageManager pm = context.getPackageManager();
+                final PackageManager pm = context.getPackageManager();
                 assert packageName != null;
                 res = pm.getResourcesForApplication(packageName);
             }
 
             int id = 0;
-            List<String> segments = uri.getPathSegments();
-            int size = segments.size();
+            final List<String> segments = uri.getPathSegments();
+            final int size = segments.size();
             if (size == 2 && segments.get(0).equals("drawable")) {
-                String resName = segments.get(1);
+                final String resName = segments.get(1);
                 id = res.getIdentifier(resName, "drawable", packageName);
             } else if (size == 1 && TextUtils.isDigitsOnly(segments.get(0))) {
                 try {
@@ -92,14 +92,14 @@ public class SkiaImageRegionDecoder implements ImageRegionDecoder {
 
             decoder = BitmapRegionDecoder.newInstance(context.getResources().openRawResource(id), false);
         } else if (uriString.startsWith(ASSET_PREFIX)) {
-            String assetName = uriString.substring(ASSET_PREFIX.length());
+            final String assetName = uriString.substring(ASSET_PREFIX.length());
             decoder = BitmapRegionDecoder.newInstance(context.getAssets().open(assetName, AssetManager.ACCESS_RANDOM), false);
         } else if (uriString.startsWith(FILE_PREFIX)) {
             decoder = BitmapRegionDecoder.newInstance(uriString.substring(FILE_PREFIX.length()), false);
         } else {
             InputStream inputStream = null;
             try {
-                ContentResolver contentResolver = context.getContentResolver();
+                final ContentResolver contentResolver = context.getContentResolver();
                 inputStream = contentResolver.openInputStream(uri);
                 decoder = BitmapRegionDecoder.newInstance(inputStream, false);
             } finally {
@@ -117,10 +117,10 @@ public class SkiaImageRegionDecoder implements ImageRegionDecoder {
         getDecodeLock().lock();
         try {
             if (decoder != null && !decoder.isRecycled()) {
-                BitmapFactory.Options options = new BitmapFactory.Options();
+                final BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = sampleSize;
                 options.inPreferredConfig = bitmapConfig;
-                Bitmap bitmap = decoder.decodeRegion(sRect, options);
+                final Bitmap bitmap = decoder.decodeRegion(sRect, options);
                 if (bitmap == null) {
                     throw new RuntimeException("Skia image decoder returned null bitmap - image format may not be supported");
                 }

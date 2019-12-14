@@ -40,7 +40,7 @@ public class SkiaImageDecoder implements ImageDecoder {
 
     @SuppressWarnings({"WeakerAccess", "SameParameterValue"})
     public SkiaImageDecoder(@Nullable Bitmap.Config bitmapConfig) {
-        Bitmap.Config globalBitmapConfig = SubsamplingScaleImageView.getPreferredBitmapConfig();
+        final Bitmap.Config globalBitmapConfig = SubsamplingScaleImageView.getPreferredBitmapConfig();
         if (bitmapConfig != null) {
             this.bitmapConfig = bitmapConfig;
         } else if (globalBitmapConfig != null) {
@@ -52,9 +52,9 @@ public class SkiaImageDecoder implements ImageDecoder {
 
     @Override
     @NonNull
-    public Bitmap decode(Context context, @NonNull Uri uri) throws Exception {
-        String uriString = uri.toString();
-        BitmapFactory.Options options = new BitmapFactory.Options();
+    public Bitmap decode(final Context context, @NonNull final Uri uri) throws Exception {
+        final String uriString = uri.toString();
+        final BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap bitmap;
         options.inPreferredConfig = bitmapConfig;
         if (uriString.startsWith(RESOURCE_PREFIX)) {
@@ -63,15 +63,16 @@ public class SkiaImageDecoder implements ImageDecoder {
             if (context.getPackageName().equals(packageName)) {
                 res = context.getResources();
             } else {
-                PackageManager pm = context.getPackageManager();
+                final PackageManager pm = context.getPackageManager();
+                assert packageName != null;
                 res = pm.getResourcesForApplication(packageName);
             }
 
             int id = 0;
-            List<String> segments = uri.getPathSegments();
-            int size = segments.size();
+            final List<String> segments = uri.getPathSegments();
+            final int size = segments.size();
             if (size == 2 && segments.get(0).equals("drawable")) {
-                String resName = segments.get(1);
+                final String resName = segments.get(1);
                 id = res.getIdentifier(resName, "drawable", packageName);
             } else if (size == 1 && TextUtils.isDigitsOnly(segments.get(0))) {
                 try {
@@ -82,14 +83,14 @@ public class SkiaImageDecoder implements ImageDecoder {
 
             bitmap = BitmapFactory.decodeResource(context.getResources(), id, options);
         } else if (uriString.startsWith(ASSET_PREFIX)) {
-            String assetName = uriString.substring(ASSET_PREFIX.length());
+            final String assetName = uriString.substring(ASSET_PREFIX.length());
             bitmap = BitmapFactory.decodeStream(context.getAssets().open(assetName), null, options);
         } else if (uriString.startsWith(FILE_PREFIX)) {
             bitmap = BitmapFactory.decodeFile(uriString.substring(FILE_PREFIX.length()), options);
         } else {
             InputStream inputStream = null;
             try {
-                ContentResolver contentResolver = context.getContentResolver();
+                final ContentResolver contentResolver = context.getContentResolver();
                 inputStream = contentResolver.openInputStream(uri);
                 bitmap = BitmapFactory.decodeStream(inputStream, null, options);
             } finally {
