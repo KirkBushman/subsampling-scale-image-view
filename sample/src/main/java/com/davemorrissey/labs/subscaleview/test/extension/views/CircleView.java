@@ -38,7 +38,7 @@ public class CircleView extends SubsamplingScaleImageView {
             return;
         }
 
-        sCenter.set(getSWidth()/2, getSHeight()/2);
+        sCenter.set(getSWidth() / 2f, getSHeight() / 2f);
         sourceToViewCoord(sCenter, vCenter);
         float radius = (getScale() * getSWidth()) * 0.25f;
 

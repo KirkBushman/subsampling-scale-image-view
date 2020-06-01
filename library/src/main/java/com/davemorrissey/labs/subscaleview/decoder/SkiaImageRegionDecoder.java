@@ -101,6 +101,9 @@ public class SkiaImageRegionDecoder implements ImageRegionDecoder {
             try {
                 final ContentResolver contentResolver = context.getContentResolver();
                 inputStream = contentResolver.openInputStream(uri);
+                if (inputStream == null) {
+                    throw new Exception("Content resolver returned null stream. Unable to initialise with uri.");
+                }
                 decoder = BitmapRegionDecoder.newInstance(inputStream, false);
             } finally {
                 if (inputStream != null) {
