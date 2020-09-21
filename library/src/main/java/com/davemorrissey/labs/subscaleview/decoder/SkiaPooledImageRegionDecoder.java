@@ -428,32 +428,7 @@ public class SkiaPooledImageRegionDecoder implements ImageRegionDecoder {
     }
 
     private int getNumberOfCores() {
-        if (Build.VERSION.SDK_INT >= 17) {
-            return Runtime.getRuntime().availableProcessors();
-        } else {
-            return getNumCoresOldPhones();
-        }
-    }
-
-    /**
-     * Gets the number of cores available in this device, across all processors.
-     * Requires: Ability to peruse the filesystem at "/sys/devices/system/cpu"
-     * @return The number of cores, or 1 if failed to get result
-     */
-    private int getNumCoresOldPhones() {
-        class CpuFilter implements FileFilter {
-            @Override
-            public boolean accept(File pathname) {
-                return Pattern.matches("cpu[0-9]+", pathname.getName());
-            }
-        }
-        try {
-            final File dir = new File("/sys/devices/system/cpu/");
-            final File[] files = dir.listFiles(new CpuFilter());
-            return files.length;
-        } catch(Exception e) {
-            return 1;
-        }
+        return Runtime.getRuntime().availableProcessors();
     }
 
     private boolean isLowMemory() {

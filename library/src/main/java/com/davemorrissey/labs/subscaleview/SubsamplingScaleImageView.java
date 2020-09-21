@@ -16,6 +16,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
@@ -1889,7 +1890,10 @@ public class SubsamplingScaleImageView extends View {
         if (sourceUri.startsWith(ContentResolver.SCHEME_CONTENT)) {
             Cursor cursor = null;
             try {
-                String[] columns = { MediaStore.Images.Media.ORIENTATION };
+                String[] columns = new String[0];
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    columns = new String[]{ MediaStore.Images.Media.ORIENTATION };
+                }
                 cursor = context.getContentResolver().query(Uri.parse(sourceUri), columns, null, null, null);
                 if (cursor != null) {
                     if (cursor.moveToFirst()) {
